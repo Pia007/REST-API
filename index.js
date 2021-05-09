@@ -51,7 +51,7 @@ app.get("/posts", (req, res) => {
     // return user object as response
     //return a 404 error if user does not exist
 app.get("/posts/:id", (req, res) => {
-    let id = req.params.id;
+    let id = req.params.id
     let foundPost = posts.find(post => {
         return String(post.id) === id
     })
@@ -62,25 +62,31 @@ app.get("/posts/:id", (req, res) => {
     }
 });
 
-app.put("/posts/:id", (req, res) => {
-    let id = req.params.id;
-    let foundPost = post.find(post => {
-        return String(post.id) === id
-    })
-    if(foundPost) {
-        let upDate = (req.body.title);
-        let stringData = JSON.stringify(upDate, null, 2);
-        fs.writeFile("posts.json", stringData, function(err) {
-            if (err) {
-                return res.status(500).json({ message: "try again" })
-            } else {
-                return res.status(200).json({ message: "change made" })
-            }
-        })
-    } else {
-        return res.status(404).json({ message: "post not found" })
-    }   
-})
+// app.put("/posts/:id", (req, res) => {
+//     let id = req.params.id;
+//     let foundPost = posts.find(post => {
+//         return String(post.id) === id
+//     })
+//     if(foundPost) {
+//         let upDate = req.body.title;
+//         let stringData = JSON.stringify(upDate, null, 2);
+//         fs.writeFile("posts.json", stringData, function(err) {
+//             if (err) {
+//                 return res.status(500).json({ message: "try again" })
+//             } else {
+//                 return res.status(200).json({ message: "change made" })
+//             }
+//         })
+//     } else {
+//         return res.status(404).json({ message: "post not found" })
+//     }   
+// })
+// app.put('/posts/:id', (req, res) => {  
+//     res.json({   
+//       title: req.body.title,   
+//       body: req.body.body,  
+//     });
+//   });
 
 app.listen(3000, function(){
     console.log("Yeah! The Server is finally working!")
