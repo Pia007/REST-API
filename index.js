@@ -71,6 +71,7 @@ app.put("/posts/:id", (req, res) => {
     
     if (foundPost) {
         foundPost.body = req.body.body;
+        foundPost.title = req.body.title;
 
         let stringData = JSON.stringify(posts, null, 2);
         fs.writeFile("posts.json", stringData, function(err) {
