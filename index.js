@@ -65,14 +65,17 @@ app.get("/posts/:id", (req, res) => {
 app.put("/posts/:id", (req, res) => {
     let id = req.params.id;
     
-    
+    let foundPost = req.body.foundPost;
     let foundPost = posts.find(post => 
         String(post.id) === id)
     
     if (foundPost) {
         foundPost.body = req.body.body;
         foundPost.title = req.body.title;
-
+        
+        let arrayId = posts.indexOf(foundPost);
+        foundPost = posts[arrayId];
+        
         let stringData = JSON.stringify(posts, null, 2);
         fs.writeFile("posts.json", stringData, function(err) {
             if (err) {
@@ -85,13 +88,7 @@ app.put("/posts/:id", (req, res) => {
         return res.status(404).json({ message: "post not updated" })
     }   
 })
-// app.put('/posts/:id', (req, res) => {  
-//     res.json({   
-//       title: req.body.title,   
-//       body: req.body.body,  
-//     });
-//   });
-// 
+
 app.listen(3000, function(){
     console.log("Yeah! The Server is finally working!")
 })
